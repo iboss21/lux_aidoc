@@ -34,27 +34,28 @@ end)
 
 function SpawnVehicle(x, y, z)  
 	spam = false
-	local vehhash = GetHashKey("ffpiu")       --- custom gta 5 mod https://www.gta5-mods.com/vehicles/2016-ford-explorer-fpiu-qrv-saems-els                                              
+	local vehhash = GetHashKey("polschafter3")  -- EMS GTA5 Mod Car.   you can find good fitting models here. https://www.gta5-mods.com/search/ems                                           
 	local loc = GetEntityCoords(PlayerPedId())
 	RequestModel(vehhash)
 	while not HasModelLoaded(vehhash) do
 		Wait(1)
 	end
-	RequestModel('s_m_m_doctor_01')
+	RequestModel('s_m_m_doctor_01')  -- fivem ped you can choose from here https://docs.fivem.net/docs/game-references/ped-models/ if you change the ped than you should update everywhere you can find this s_m_m_doctor_01
 	while not HasModelLoaded('s_m_m_doctor_01') do
 		Wait(1)
 	end
-	local spawnRadius = 140                                                    
+	local spawnRadius = 300                                                    
     local found, spawnPos, spawnHeading = GetClosestVehicleNodeWithHeading(loc.x + math.random(-spawnRadius, spawnRadius), loc.y + math.random(-spawnRadius, spawnRadius), loc.z, 0, 3, 0)
 
 	if not DoesEntityExist(vehhash) then
         mechVeh = CreateVehicle(vehhash, spawnPos, spawnHeading, true, false)                        
         ClearAreaOfVehicles(GetEntityCoords(mechVeh), 5000, false, false, false, false, false);  
-        SetVehicleOnGroundProperly(mechVeh)
-		SetVehicleNumberPlateText(mechVeh, "HHFW")
+        SetVehicleOnGroundProperly(mechVeh) 
+		SetVehicleNumberPlateText(mechVeh, "EMS")  -- License Plate Text on the EMS Car
 		SetEntityAsMissionEntity(mechVeh, true, true)
 		SetVehicleEngineOn(mechVeh, true, true, false)
-        
+		SetVehicleSiren(mechVeh, true)  -- Updated code now every ems car comes with siren on Lights and Sound. 
+				
         mechPed = CreatePedInsideVehicle(mechVeh, 26, GetHashKey('s_m_m_doctor_01'), -1, true, false)              	
         
         mechBlip = AddBlipForEntity(mechVeh)                                                        	
